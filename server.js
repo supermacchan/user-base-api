@@ -3,6 +3,7 @@ require('dotenv').config();
 const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3000;
+// const PORT = 3001;
 const uriDb = process.env.DB_HOST;
 
 mongoose.set("strictQuery", true);
