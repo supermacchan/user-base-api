@@ -8,9 +8,10 @@ const axios = require('axios');
 
 const getUsers = async () => {
     try {
+        // temporarily taking users from the database
         const users = await User.find({});
 
-        // this one gives an error ENOTFOUND ↓
+        // this one currently gives an error ENOTFOUND ↓
         const url = "https://api.example.com/users";
         const test = await axios.get(url);
 
@@ -19,6 +20,7 @@ const getUsers = async () => {
 
         console.log(test.data);
 
+        // temp
         return users;
     } catch (err) {
         console.log(err)
@@ -30,11 +32,12 @@ const getUsers = async () => {
 
 const addUser = async (data) => {
     try {
+        console.log(data);
         const user = new User(data);
         await User.create(user);
         return user;
     } catch (err) {
-        console.log(err.message);
+        console.log(err);
         throw new ValidationError('Bad request: some required fields are not filled out.');
     }
 }
