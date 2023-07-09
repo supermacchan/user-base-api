@@ -12,15 +12,7 @@ class ValidationError extends ServerError {
     }
 }
 
-class NotFoundError extends ServerError {
-    constructor(message) {
-        super(message);
-        this.status = 404;
-    }
-}
-
 module.exports = {
     ServerError,
-    ValidationError,
-    NotFoundError
+    ValidationError
 }

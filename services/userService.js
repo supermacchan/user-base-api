@@ -24,9 +24,8 @@ const getUsers = async () => {
         return users;
     } catch (err) {
         console.log(err)
-        // throw new ServerError('The server could not complete your query.');
-        throw new ServerError(err.message);
-        // add not found error?
+        throw new ServerError('The server could not complete your query.');
+        // throw new ServerError(err.message);
     }
 };
 
