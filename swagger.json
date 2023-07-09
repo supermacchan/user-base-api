@@ -1,0 +1,187 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "user-database",
+    "description": "The API for the User Database",
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "User Database",
+    "url": "https://github.com/supermacchan/user-database-api"
+  },
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Fetch users",
+        "description": "Fetch all users.",
+        "operationId": "users/fetchAll",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/addUser": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Add new user",
+        "description": "Create a new contact.",
+        "operationId": "users/addUser",
+        "requestBody": {
+          "description": "Information about the user.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Info"
+              },
+              "encoding": {
+                "img": {
+                  "contentType": "image/png, image/jpeg",
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_201"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - some required fields are not filled out.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Users": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/User"
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "640cd5ac2d9fecf12e889807"
+          },
+          "name": {
+            "type": "string",
+            "example": "Mary Johnson"
+          },
+          "age": {
+            "type": "integer",
+            "format": "int64",
+            "example": 21
+          },
+          "email": {
+            "type": "string",
+            "example": "example@email.com"
+          }
+        }
+      },
+      "Info": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Mary Johnson"
+          },
+          "age": {
+            "type": "integer",
+            "format": "int64",
+            "example": 21
+          },
+          "email": {
+            "type": "string",
+            "example": "example@email.com"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "The server could not complete your query."
+          }
+        }
+      },
+      "inline_response_200": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "example": 200
+          },
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Users"
+          }
+        }
+      },
+      "inline_response_201": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "example": 201
+          },
+          "status": {
+            "type": "string",
+            "example": "created"
+          },
+          "data": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      }
+    }
+  }
+}

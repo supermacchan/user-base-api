@@ -2,7 +2,6 @@ require('dotenv').config();
 const { Telegraf, Scenes, session } = require('telegraf');
 const { fmt, bold } =require("telegraf/format");
 const { enter } = Scenes.Stage;
-// const { addUser } = require('../services/userService');
 const axios = require('axios');
 
 const { BOT_TOKEN: token } = process.env;
