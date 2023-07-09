@@ -10,7 +10,6 @@ const getUsersController = async (req, res) => {
             data: users
         });
     } catch (err) {
-        console.log(err);
         res.status(err.status).json(err.message);
     }
 }
@@ -27,7 +26,6 @@ const addUserController = async (req, res) => {
             data: user
         });
     } catch (err) {
-        console.log(err);
         res.status(err.status).json(err.message);
     }
 }
