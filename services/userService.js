@@ -5,14 +5,21 @@ const {
 } = require('../helpers/errors');
 const axios = require('axios');
 
-// ↓↓↓ this link currently gives an error ENOTFOUND - not possible to connect to this address 
-const url = "https://api.example.com/users";
-
-const getUsers = async () => {
+const getUsers = async (url = "https://api.example.com/users") => {
+    // ↑↑↑ this link currently gives an error ENOTFOUND - ↑↑↑ not possible to connect to this address 
+    // needs to be replaced with a valid url
     try {
-        const users = await axios.get(url);
-        return users.data;
+        const { data: fetchedUsers } = await axios.get(url);
+
+        const users = fetchedUsers.map(async (singleUser) => {
+            const user = new User(singleUser);
+            await User.create(user);
+            return user;
+        })
+
+        return users;
     } catch (err) {
+        console.log(`Process stopped with error: ${err.message}`);
         throw new ServerError('The server could not complete your query.');
     }
 };
@@ -23,6 +30,7 @@ const addUser = async (data) => {
         await User.create(user);
         return user;
     } catch (err) {
+        console.log(`Process stopped with error: ${err.message}`);
         throw new ValidationError('Bad request: some required fields are not filled out.');
     }
 }
